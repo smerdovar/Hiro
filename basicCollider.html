@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+		
+	</head>
+	<body>
+		<script>
+			let d1=null;
+			let d2=null;
+			AFRAME.registerComponent('collider-check', {
+			  dependencies: ['raycaster'],
+
+			  init: function () {
+				this.el.addEventListener('raycaster-intersection', function (evt) {
+				  console.log('raycaster-intersection',evt.detail.els[0].id,evt.detail.intersections[0]);
+				  d1=evt.detail;
+				});
+				
+			  }
+			});
+		</script>
+		<a-scene id="ascene"  debug>
+			<a-entity id="player" animation="property:rotation.x; from:0;to:180;dir:normal;dur:20000;loop:1;easing:linear;" collider-check>
+				<!--a-entity raycaster="objects: .collidable" position="0 -0.9 0" rotation="180 0 0" line=""></a-entity-->
+				<a-entity id="rc" raycaster="objects: .collidable; showLine: true; far: 100" rotation="180 0 0" line="color: orange; opacity: 0.5"></a-entity>
+			</a-entity>
+			<a-entity id="collwrap" animation="property:rotation.y; from:0;to:180;dir:normal;dur:2000;loop:true;easing:linear;">
+				<a-entity id="collaba" class="collidable" geometry="primitive: box" position="1 0 0"></a-entity>
+			</a-entity>
+			<a-camera position="1 1 10"
+			<a-sky color="#d0d0d0"></a-sky>
+		</a-scene>
+	</body>
+</html>
